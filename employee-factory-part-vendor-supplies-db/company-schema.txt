@@ -1,0 +1,86 @@
+-- 1. Employee Table
+CREATE TABLE Employee (
+    ID INT PRIMARY KEY AUTOINCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    Position VARCHAR(255),
+    PayRate INTEGER,
+    PayType VARCHAR(10),
+    Supervisor INT,
+    FOREIGN KEY (Supervisor) REFERENCES Employee(ID) ON DELETE SET NULL
+);
+
+-- 2. Factory Table
+CREATE TABLE Factory (
+    FactoryID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    City VARCHAR(100),
+    ManagerID INT,
+    FOREIGN KEY (ManagerID) REFERENCES Employee(ID) ON DELETE SET NULL
+);
+
+-- 3. Part Table
+CREATE TABLE Part (
+    PartID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Description TEXT NOT NULL,
+    AssemblyLine VARCHAR(100),
+    Throughput INT
+);
+
+-- 4. Vendor Table
+CREATE TABLE Vendor (
+    VendorID INTEGER PRIMARY KEY AUTOINCREMENT,
+    Name VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) UNIQUE,
+    Phone VARCHAR(20),
+    Price INT
+);
+
+-- 5. Supplies Table (Many-to-Many between Part and Vendor)
+CREATE TABLE Supplies (
+    PO_Number INTEGER PRIMARY KEY AUTOINCREMENT,
+    PartID INT,
+    VendorID INT,
+    FOREIGN KEY (PartID) REFERENCES Part(PartID) ON DELETE CASCADE,
+    FOREIGN KEY (VendorID) REFERENCES Vendor(VendorID) ON DELETE CASCADE
+);
+
+-- entried
+-- 1. Employee Table
+INSERT INTO Employee (Name, Position, PayRate, PayType, Supervisor)
+VALUES
+('Alice Johnson', 'Manager', 80000, 'Salaried', NULL),
+('Bob Smith', 'Engineer', 60000, 'Salaried', 1),
+('Charlie Brown', 'Technician', 45000, 'Hourly', 2),
+('David Lee', 'Technician', 45000, 'Hourly', 2),
+('Eve Williams', 'HR Specialist', 50000, 'Salaried', 1),
+('Frank Miller', 'Engineer', 65000, 'Salaried', 1);
+
+-- 2. Factory Table
+INSERT INTO Factory (Name, City, ManagerID)
+VALUES
+('Factory A', 'New York', 1),
+('Factory B', 'Los Angeles', 2);
+
+-- 3. Part Table
+INSERT INTO Part (Description, AssemblyLine, Throughput)
+VALUES
+('Part 1 Description', 'Assembly Line 1', 1000),
+('Part 2 Description', 'Assembly Line 2', 500),
+('Part 3 Description', 'Assembly Line 3', 1500);
+
+-- 4. Vendor Table
+INSERT INTO Vendor (Name, Email, Phone, Price)
+VALUES
+('Vendor A', 'vendorA@example.com', '123-456-7890', 200),
+('Vendor B', 'vendorB@example.com', '987-654-3210', 150),
+('Vendor C', 'vendorC@example.com', '555-123-9876', 180);
+
+-- 5. Supplies Table
+INSERT INTO Supplies (PartID, VendorID)
+VALUES
+(1, 1),
+(1, 2),
+(2, 3),
+(3, 1),
+(3, 2),
+(2, 1);
