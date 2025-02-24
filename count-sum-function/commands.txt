@@ -1,0 +1,35 @@
+CREATE TABLE student (
+    name VARCHAR(100),
+    roll_no INT PRIMARY KEY,
+    marks INT,
+    subject VARCHAR(100)
+);
+
+INSERT INTO student (name, roll_no, marks, subject)
+VALUES
+('John Doe', 1, 85, 'Mathematics'),
+('Jane Smith', 2, 90, 'Science'),
+('Emily Davis', 3, 78, 'English'),
+('Michael Brown', 4, 88, 'Mathematics'),
+('Sarah Wilson', 5, 92, 'Science'),
+('David Lee', 6, 76, 'English'),
+('Sophia Clark', 7, 89, 'Mathematics'),
+('Daniel Harris', 8, 82, 'Science'),
+('Olivia Taylor', 9, 91, 'English'),
+('Lucas Martinez', 10, 95, 'Mathematics');
+
+SELECT count(subject) FROM student WHERE subject = 'Mathematics' ;
+SELECT count(subject) FROM student WHERE subject = 'English' ;
+SELECT count(subject) FROM student WHERE subject = 'Science' ;
+
+SELECT count(subject) FROM student GROUP BY subject ORDER BY subject ;
+
+SELECT sum(marks) FROM student WHERE subject = 'Mathematics' ;
+SELECT sum(marks) FROM student WHERE subject = 'Science' ;
+SELECT sum(marks) FROM student WHERE subject = 'English' ;
+
+SELECT * FROM student WHERE name LIKE 'J%' ;
+
+SELECT * FROM student WHERE name LIKE '%B%' ;
+
+SELECT * FROM student WHERE name LIKE '%e' ;
