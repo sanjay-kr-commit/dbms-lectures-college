@@ -1,0 +1,50 @@
+DROP TABLE IF EXISTS customer ;
+DROP TABLE IF EXISTS c_order ;
+CREATE TABLE customer( c_id NUMBER PRIMARY KEY , c_name varchar(100) , addr varchar(200) ) ;
+CREATE TABLE c_order( o_id NUMBER PRIMARY KEY , o_name varchar(100) , c_id NUMBER , FOREIGN KEY ( c_id ) REFERENCES customer(c_id) ) ;
+
+INSERT INTO customer (c_id, c_name, addr) VALUES (1, 'John Doe', '123 Main St, New York');
+INSERT INTO customer (c_id, c_name, addr) VALUES (2, 'Jane Smith', '456 Elm St, Los Angeles');
+INSERT INTO customer (c_id, c_name, addr) VALUES (3, 'Alice Johnson', '789 Oak St, Chicago');
+INSERT INTO customer (c_id, c_name, addr) VALUES (4, 'Robert Brown', '321 Pine St, Houston');
+INSERT INTO customer (c_id, c_name, addr) VALUES (5, 'Emily Davis', '654 Maple St, Miami');
+INSERT INTO customer (c_id, c_name, addr) VALUES (6, 'Michael Wilson', '987 Birch St, Seattle');
+INSERT INTO customer (c_id, c_name, addr) VALUES (7, 'Sarah Miller', '741 Cedar St, Denver');
+INSERT INTO customer (c_id, c_name, addr) VALUES (8, 'David Anderson', '852 Walnut St, Boston');
+INSERT INTO customer (c_id, c_name, addr) VALUES (9, 'Laura Martinez', '963 Spruce St, San Francisco');
+INSERT INTO customer (c_id, c_name) VALUES (10, 'Laura Musk');
+
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (101, 'Laptop', 1);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (102, 'Smartphone', 2);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (103, 'Tablet', 1);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (104, 'Smartwatch', 3);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (105, 'Headphones', 4);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (106, 'Gaming Console', 5);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (107, 'Monitor', 6);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (108, 'Keyboard', 7);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (109, 'Mouse', 8);
+INSERT INTO c_order (o_id, o_name, c_id) VALUES (110, 'Printer', 9);
+INSERT INTO c_order (o_id, c_id) VALUES (111, 10);
+
+SELECT * FROM customer
+LEFT JOIN c_order ON customer.c_id = c_order.c_id;
+
+SELECT * FROM customer
+RIGHT JOIN c_order ON customer.c_id = c_order.c_id;
+
+SELECT * FROM customer
+INNER JOIN c_order ON customer.c_id = c_order.c_id;
+
+SELECT * FROM customer
+LEFT JOIN c_order ON customer.c_id = c_order.c_id
+WHERE c_order.o_name IS NULL;
+
+SELECT * FROM customer
+RIGHT JOIN c_order ON customer.c_id = c_order.c_id
+WHERE customer.addr IS NULL;
+
+SELECT * FROM customer
+FULL JOIN c_order ON customer.c_id = c_order.c_id WHERE customer.addr IS NULL AND c_order.o_name IS NULL ;
+
+SELECT * FROM customer
+FULL OUTER JOIN c_order ON customer.c_id = c_order.c_id;
